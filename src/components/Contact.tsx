@@ -5,6 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
+import data from '../../data.json';
 
 export default function Contact() {
   const { scrollY } = useViewportScroll();
@@ -20,6 +21,8 @@ export default function Contact() {
     focus:outline-none focus:ring-2 focus:ring-green-500/50
     transition-all duration-300
     ${focusedField === fieldName ? 'border-green-500/50 shadow-lg shadow-green-500/20' : 'border-accent/20'}`;
+
+  const contact = data.contact || { heading: 'Contact Us', description: 'Have questions or want to collaborate? Reach out to us!' };
 
   return (
     <motion.section
@@ -54,7 +57,7 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ type: 'spring', stiffness: 100 }}
           >
-            Contact Us
+            {contact.heading}
           </motion.h2>
           <motion.p
             className="text-lg text-foreground/80 max-w-2xl mx-auto"
@@ -63,7 +66,7 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            Have questions or want to collaborate? Reach out to us!
+            {contact.description}
           </motion.p>
         </motion.div>
         {/* ...rest of the contact form... */}
