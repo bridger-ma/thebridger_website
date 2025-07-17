@@ -1,0 +1,32 @@
+@keyframes gradient-move {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-gradient-move {
+  background: linear-gradient(270deg, #2563eb, #6366f1, #a21caf, #2563eb);
+  background-size: 400% 400%;
+  animation: gradient-move 16s ease infinite;
+  opacity: 0.3;
+}
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+.btn-ripple::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255,255,255,0.4);
+  border-radius: 100%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: width 0.4s cubic-bezier(0.4,0,0.2,1), height 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+.btn-ripple:active::after {
+  width: 200px;
+  height: 200px;
+  transition: 0s;
+} 
