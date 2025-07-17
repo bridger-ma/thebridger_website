@@ -4,16 +4,24 @@ import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 
 // Particle component for floating animation
-const Particle = ({ delay }: { delay: number }) => (
+const Particle = ({
+  delay,
+  windowWidth,
+  windowHeight,
+}: {
+  delay: number;
+  windowWidth: number;
+  windowHeight: number;
+}) => (
   <motion.div
     className="absolute w-1 h-1 bg-white/30 rounded-full"
     initial={{
-      x: Math.random() * window.innerWidth,
-      y: window.innerHeight + 10,
+      x: Math.random() * windowWidth,
+      y: windowHeight + 10,
       opacity: 0,
     }}
     animate={{
-      x: Math.random() * window.innerWidth,
+      x: Math.random() * windowWidth,
       y: -10,
       opacity: [0, 1, 0],
     }}
@@ -31,21 +39,25 @@ const FloatingIcon = ({
   children,
   duration,
   delay,
+  windowWidth,
+  windowHeight,
 }: {
   children: React.ReactNode;
   duration: number;
   delay: number;
+  windowWidth: number;
+  windowHeight: number;
 }) => (
   <motion.div
     className="absolute text-white/20 text-2xl"
     initial={{
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
+      x: Math.random() * windowWidth,
+      y: Math.random() * windowHeight,
       rotate: 0,
     }}
     animate={{
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
+      x: Math.random() * windowWidth,
+      y: Math.random() * windowHeight,
       rotate: 360,
     }}
     transition={{
@@ -62,9 +74,25 @@ const FloatingIcon = ({
 
 export default function Hero() {
   const [greeting, setGreeting] = useState("Welcome");
+  const [dimensions, setDimensions] = useState({ width: 1920, height: 1080 });
+  const [mounted, setMounted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
+    setMounted(true);
+
+    const updateDimensions = () => {
+      if (typeof window !== "undefined") {
+        setDimensions({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+    };
+
+    updateDimensions();
+    window.addEventListener("resize", updateDimensions);
+
     const hour = new Date().getHours();
     if (hour < 12) setGreeting("Good morning");
     else if (hour < 18) setGreeting("Good afternoon");
@@ -74,6 +102,8 @@ export default function Hero() {
     if (videoRef.current) {
       videoRef.current.play().catch(console.log);
     }
+
+    return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
   const containerVariants = {
@@ -108,6 +138,19 @@ export default function Hero() {
     },
     tap: { scale: 0.98 },
   };
+
+  // Don't render until mounted to avoid hydration issues
+  if (!mounted) {
+    return (
+      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black">
+        <div className="text-white text-center">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8">
+            Loading...
+          </h1>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
@@ -150,28 +193,63 @@ export default function Hero() {
       {/* Particle Effects */}
       <div className="absolute inset-0 z-30 pointer-events-none">
         {[...Array(50)].map((_, i) => (
-          <Particle key={i} delay={i * 0.2} />
+          <Particle
+            key={i}
+            delay={i * 0.2}
+            windowWidth={dimensions.width}
+            windowHeight={dimensions.height}
+          />
         ))}
       </div>
 
       {/* Floating AI Icons */}
       <div className="absolute inset-0 z-25 pointer-events-none overflow-hidden">
-        <FloatingIcon duration={20} delay={0}>
+        <FloatingIcon
+          duration={20}
+          delay={0}
+          windowWidth={dimensions.width}
+          windowHeight={dimensions.height}
+        >
           🤖
         </FloatingIcon>
-        <FloatingIcon duration={25} delay={5}>
+        <FloatingIcon
+          duration={25}
+          delay={5}
+          windowWidth={dimensions.width}
+          windowHeight={dimensions.height}
+        >
           🧠
         </FloatingIcon>
-        <FloatingIcon duration={30} delay={10}>
+        <FloatingIcon
+          duration={30}
+          delay={10}
+          windowWidth={dimensions.width}
+          windowHeight={dimensions.height}
+        >
           ⚡
         </FloatingIcon>
-        <FloatingIcon duration={22} delay={15}>
+        <FloatingIcon
+          duration={22}
+          delay={15}
+          windowWidth={dimensions.width}
+          windowHeight={dimensions.height}
+        >
           🔬
         </FloatingIcon>
-        <FloatingIcon duration={28} delay={8}>
+        <FloatingIcon
+          duration={28}
+          delay={8}
+          windowWidth={dimensions.width}
+          windowHeight={dimensions.height}
+        >
           💡
         </FloatingIcon>
-        <FloatingIcon duration={35} delay={12}>
+        <FloatingIcon
+          duration={35}
+          delay={12}
+          windowWidth={dimensions.width}
+          windowHeight={dimensions.height}
+        >
           🚀
         </FloatingIcon>
       </div>
@@ -312,12 +390,12 @@ export default function Hero() {
               filter: "blur(2px)",
             }}
             initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
+              x: Math.random() * dimensions.width,
+              y: Math.random() * dimensions.height,
             }}
             animate={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
+              x: Math.random() * dimensions.width,
+              y: Math.random() * dimensions.height,
               scale: [1, 1.2, 1],
               opacity: [0.3, 0.6, 0.3],
             }}
