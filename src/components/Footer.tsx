@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Mail, MapPin, ExternalLink } from 'lucide-react';
+import data from '../../data.json';
 
 const fadeInUpVariant = {
   hidden: { opacity: 0, y: 20 },
@@ -21,6 +22,17 @@ const LinkItem = ({ href, children }: { href: string; children: React.ReactNode 
 );
 
 export default function Footer() {
+  const footer = data.footer || {
+    brand: 'The Bridger',
+    description: 'Connecting Morocco with AI-powered solutions for a better tomorrow.',
+    links: [
+      { label: 'About', href: '#about' },
+      { label: 'AI Ideas', href: '#ideas' },
+      { label: 'Contact', href: '#contact' }
+    ],
+    contact: { email: 'contact@thebridger.ma', location: 'Casablanca, Morocco' }
+  };
+
   return (
     <motion.footer
       className="bg-background/50 backdrop-blur-xl border-t border-accent/20 relative overflow-hidden shadow-2xl"
@@ -80,10 +92,10 @@ export default function Footer() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              The Bridger
+              {footer.brand}
             </motion.h3>
             <p className="text-foreground/80 leading-relaxed">
-              Connecting Morocco with AI-powered solutions for a better tomorrow.
+              {footer.description}
             </p>
           </motion.div>
 
@@ -94,15 +106,11 @@ export default function Footer() {
           >
             <h3 className="text-xl font-semibold text-foreground">Quick Links</h3>
             <ul className="space-y-3">
-              <li>
-                <LinkItem href="#about">About</LinkItem>
-              </li>
-              <li>
-                <LinkItem href="#ideas">AI Ideas</LinkItem>
-              </li>
-              <li>
-                <LinkItem href="#contact">Contact</LinkItem>
-              </li>
+              {footer.links.map((link: { label: string; href: string }, index: number) => (
+                <li key={index}>
+                  <LinkItem href={link.href}>{link.label}</LinkItem>
+                </li>
+              ))}
             </ul>
           </motion.div>
 
@@ -115,13 +123,13 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <motion.a
-                  href="mailto:contact@thebridger.ma"
+                  href={`mailto:${footer.contact.email}`}
                   className="text-foreground/80 hover:text-foreground flex items-center gap-2 group w-fit"
                   whileHover={{ x: 4 }}
                   transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                 >
                   <Mail className="w-4 h-4" />
-                  <span>contact@thebridger.ma</span>
+                  <span>{footer.contact.email}</span>
                 </motion.a>
               </li>
               <li>
@@ -132,7 +140,7 @@ export default function Footer() {
                   viewport={{ once: true }}
                 >
                   <MapPin className="w-4 h-4" />
-                  <span>Casablanca, Morocco</span>
+                  <span>{footer.contact.location}</span>
                 </motion.div>
               </li>
             </ul>
