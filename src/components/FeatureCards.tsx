@@ -1,27 +1,7 @@
 import { GraduationCap, HeartPulse, Leaf, Bus } from 'lucide-react';
+import data from '../../data.json';
 
-const features = [
-  {
-    icon: <GraduationCap className="h-10 w-10 text-accent mb-4" />,
-    title: 'Education',
-    description: 'Personalized learning and adaptive AI tutors for students and teachers.'
-  },
-  {
-    icon: <Leaf className="h-10 w-10 text-accent mb-4" />,
-    title: 'Agriculture',
-    description: 'Smart farming, crop disease prediction, and resource optimization.'
-  },
-  {
-    icon: <HeartPulse className="h-10 w-10 text-accent mb-4" />,
-    title: 'Healthcare',
-    description: 'AI-driven diagnostics, appointment scheduling, and health record management.'
-  },
-  {
-    icon: <Bus className="h-10 w-10 text-accent mb-4" />,
-    title: 'Transport',
-    description: 'Intelligent traffic management and predictive maintenance for public transport.'
-  },
-];
+const features = data.features;
 
 export default function FeatureCards() {
   return (
