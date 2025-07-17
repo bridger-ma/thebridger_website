@@ -1,0 +1,211 @@
+{
+  "hero": {
+    "greetings": [
+      "Good morning",
+      "Good afternoon",
+      "Good evening"
+    ],
+    "headline": "Accelerate Innovation with AI",
+    "description": "Discover how our platform brings the power of artificial intelligence to real-world challenges, inspired by the legacy of IBM Watson.",
+    "cta": [
+      { "label": "Get Started", "href": "#contact" },
+      { "label": "Learn More", "href": "#ideas" }
+    ]
+  },
+  "features": [
+    {
+      "icon": "GraduationCap",
+      "title": "Education",
+      "description": "Personalized learning and adaptive AI tutors for students and teachers."
+    },
+    {
+      "icon": "Leaf",
+      "title": "Agriculture",
+      "description": "Smart farming, crop disease prediction, and resource optimization."
+    },
+    {
+      "icon": "HeartPulse",
+      "title": "Healthcare",
+      "description": "AI-driven diagnostics, appointment scheduling, and health record management."
+    },
+    {
+      "icon": "Bus",
+      "title": "Transport",
+      "description": "Intelligent traffic management and predictive maintenance for public transport."
+    }
+  ],
+  "ideas": [
+    {
+      "title": "Education AI",
+      "description": "Personalized learning experiences using AI tutors",
+      "image": "/images/6bb1ff2f-657c-4b51-bbcb-4f3bdc636ec3_large.webp",
+      "details": "AI-powered educational platform that adapts to individual learning styles, providing personalized curriculum and real-time feedback in both Arabic and French."
+    },
+    {
+      "title": "Agriculture AI",
+      "description": "Smart farming solutions for better yields",
+      "image": "/images/Untitled design.png",
+      "details": "Precision agriculture system using AI to optimize irrigation, predict crop diseases, and provide actionable insights for farmers in different regions of Morocco."
+    },
+    {
+      "title": "Healthcare AI",
+      "description": "Improving healthcare accessibility",
+      "image": "/images/ai-generated-abstract-blue-background-with-connecting-dots-and-lines-network-concept-3d-rendering-futuristic-technology-wallpaper-with-digital-glowing-waves-and-a-network-system-.jpg",
+      "details": "AI-driven healthcare assistant that helps with preliminary diagnoses, appointment scheduling, and medical record management, making healthcare more accessible in rural areas."
+    },
+    {
+      "title": "Transport AI",
+      "description": "Smart transportation management",
+      "image": "/images/ai-generated-abstract-blue-background-with-connecting-dots-and-lines-network-concept-3d-rendering-futuristic-technology-wallpaper-with-digital-glowing-waves-and-a-network-system-.jpg",
+      "details": "Intelligent transportation system that optimizes traffic flow, predicts maintenance needs, and improves public transport efficiency in Moroccan cities."
+    }
+  ],
+  "about": {
+    "features": [
+      {
+        "icon": "Globe",
+        "title": "Local Impact",
+        "description": "Tailored AI solutions addressing specific needs of Moroccan communities."
+      },
+      {
+        "icon": "Users",
+        "title": "Community Driven",
+        "description": "Built by and for the Moroccan community, ensuring cultural relevance."
+      },
+      {
+        "icon": "Lightbulb",
+        "title": "Innovation Focus",
+        "description": "Leveraging cutting-edge AI technology to solve local challenges."
+      }
+    ],
+    "mission": "We are on a mission to accelerate Morocco's digital transformation through innovative AI solutions that address real community needs."
+  },
+  "timeline": [
+    {
+      "year": "2022",
+      "title": "Project Inception",
+      "description": "The Bridger project is conceptualized to accelerate Morocco’s digital transformation with AI."
+    },
+    {
+      "year": "2023",
+      "title": "First Prototype",
+      "description": "Launched the first working prototype, demonstrating AI-powered solutions for education and agriculture."
+    },
+    {
+      "year": "2024",
+      "title": "Public Launch",
+      "description": "Released the platform to the public, expanding to healthcare and transport sectors."
+    },
+    {
+      "year": "2025",
+      "title": "AI Governance & Trust",
+      "description": "Introduced responsible AI features, focusing on transparency, privacy, and explainability."
+    }
+  ],
+  "governance": [
+    {
+      "icon": "ShieldCheck",
+      "title": "Responsible AI",
+      "description": "We prioritize ethical AI development, ensuring fairness and accountability in every solution."
+    },
+    {
+      "icon": "Eye",
+      "title": "Transparency",
+      "description": "Our models and decisions are explainable, so users and stakeholders understand how AI works."
+    },
+    {
+      "icon": "Lock",
+      "title": "Privacy & Security",
+      "description": "We safeguard user data with industry-leading security and privacy practices."
+    },
+    {
+      "icon": "Users",
+      "title": "Community Collaboration",
+      "description": "We work with local communities to ensure our AI solutions are relevant and beneficial."
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "question": "What’s your main goal?",
+        "options": [
+          { "label": "Improve learning", "value": "education" },
+          { "label": "Boost crop yields", "value": "agriculture" },
+          { "label": "Enhance healthcare", "value": "healthcare" },
+          { "label": "Optimize transport", "value": "transport" }
+        ]
+      },
+      {
+        "question": "What’s your organization type?",
+        "options": [
+          { "label": "School/University", "value": "education" },
+          { "label": "Farm/Co-op", "value": "agriculture" },
+          { "label": "Clinic/Hospital", "value": "healthcare" },
+          { "label": "City/Transport Agency", "value": "transport" }
+        ]
+      }
+    ],
+    "results": {
+      "education": {
+        "title": "Education AI",
+        "description": "Personalized learning and adaptive AI tutors for students and teachers."
+      },
+      "agriculture": {
+        "title": "Agriculture AI",
+        "description": "Smart farming, crop disease prediction, and resource optimization."
+      },
+      "healthcare": {
+        "title": "Healthcare AI",
+        "description": "AI-driven diagnostics, appointment scheduling, and health record management."
+      },
+      "transport": {
+        "title": "Transport AI",
+        "description": "Intelligent traffic management and predictive maintenance for public transport."
+      }
+    }
+  },
+  "testimonials": [
+    {
+      "quote": "The Bridger’s AI solutions transformed our workflow and helped us reach new heights in efficiency.",
+      "name": "Fatima E.",
+      "title": "CEO, AgriMorocco"
+    },
+    {
+      "quote": "We’ve seen a 30% improvement in student engagement thanks to The Bridger’s personalized learning tools.",
+      "name": "Youssef B.",
+      "title": "Director, EduFuture"
+    },
+    {
+      "quote": "Their commitment to responsible AI and community collaboration is unmatched.",
+      "name": "Sara L.",
+      "title": "Innovation Lead, Health4All"
+    }
+  ],
+  "partners": [
+    "/images/partner-ibm.svg",
+    "/images/partner-university.svg",
+    "/images/partner-agri.svg",
+    "/images/partner-health.svg"
+  ],
+  "cta": {
+    "headline": "Ready to Accelerate Your AI Journey?",
+    "description": "Join innovators across Morocco and beyond. Discover how our platform can help you unlock new insights, drive productivity, and deliver better experiences.",
+    "actions": [
+      { "label": "Contact Us", "href": "#contact" },
+      { "label": "Explore AI Ideas", "href": "#ideas" }
+    ]
+  },
+  "footer": {
+    "brand": "The Bridger",
+    "description": "Connecting Morocco with AI-powered solutions for a better tomorrow.",
+    "links": [
+      { "label": "About", "href": "#about" },
+      { "label": "AI Ideas", "href": "#ideas" },
+      { "label": "Contact", "href": "#contact" }
+    ],
+    "contact": {
+      "email": "contact@thebridger.ma",
+      "location": "Casablanca, Morocco"
+    }
+  }
+} 

@@ -4,24 +4,10 @@ import { motion, useViewportScroll, useTransform, useAnimation, useMotionValue }
 import { Card } from '@/components/ui/card';
 import { Globe, Users, Lightbulb } from 'lucide-react';
 import { useRef } from 'react';
+import data from '../../data.json';
 
-const features = [
-  {
-    icon: <Globe className="h-8 w-8 text-green-600" />,
-    title: 'Local Impact',
-    description: 'Tailored AI solutions addressing specific needs of Moroccan communities.'
-  },
-  {
-    icon: <Users className="h-8 w-8 text-green-600" />,
-    title: 'Community Driven',
-    description: 'Built by and for the Moroccan community, ensuring cultural relevance.'
-  },
-  {
-    icon: <Lightbulb className="h-8 w-8 text-green-600" />,
-    title: 'Innovation Focus',
-    description: 'Leveraging cutting-edge AI technology to solve local challenges.'
-  }
-];
+const features = data.about.features;
+const mission = data.about.mission;
 
 const FeatureCard = ({ feature, index }: { feature: typeof features[0]; index: number }) => {
   const controls = useAnimation();
@@ -141,8 +127,7 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            We are on a mission to accelerate Morocco&apos;s digital transformation through
-            innovative AI solutions that address real community needs.
+            {mission}
           </motion.p>
         </motion.div>
 
