@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import data from "../../data.json";
+import { motion } from "framer-motion";
 
 const quiz = data.quiz;
 const questions = quiz.questions;
@@ -34,14 +35,21 @@ export default function AIQuiz() {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-accent/10 to-background">
-      <div className="max-w-xl mx-auto px-4 text-center">
-        <h2 className="text-3xl font-bold mb-8 text-foreground">
+    <section className="py-20 relative overflow-hidden">
+      {/* Removed global animated background class */}
+      {/* Glowing accent orb */}
+      <motion.div
+        className="absolute right-12 top-16 w-24 h-24 rounded-full bg-[var(--color-accent)]/30 blur-3xl z-0"
+        animate={{ y: [0, 30, 0], opacity: [0.4, 0.7, 0.4], scale: [1, 1.1, 1] }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      <div className="max-w-xl mx-auto px-4 text-center relative z-10">
+        <h2 className="text-3xl font-bold mb-8 text-[var(--color-white)]">
           Which AI Solution Fits You?
         </h2>
         {!showResult ? (
-          <div className="bg-white/80 dark:bg-background/80 rounded-xl shadow p-8">
-            <div className="text-lg font-semibold mb-6 text-accent">
+          <div className="bg-[var(--color-black)]/90 rounded-xl shadow p-8">
+            <div className="text-lg font-semibold mb-6 text-[var(--color-accent)]">
               {questions[step].question}
             </div>
             <div className="flex flex-col gap-4">
@@ -49,7 +57,7 @@ export default function AIQuiz() {
                 (opt: { label: string; value: string }) => (
                   <button
                     key={opt.value}
-                    className="btn-ripple bg-accent/90 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-accent transition focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/60"
+                    className="btn-ripple bg-[var(--color-accent)] text-[var(--color-black)] font-semibold px-6 py-3 rounded-lg shadow hover:bg-[var(--color-dark-green)] hover:text-[var(--color-white)] transition focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-accent)]/60"
                     onClick={() => handleOption(opt.value)}
                   >
                     {opt.label}
@@ -59,15 +67,15 @@ export default function AIQuiz() {
             </div>
           </div>
         ) : (
-          <div className="bg-white/80 dark:bg-background/80 rounded-xl shadow p-8 flex flex-col items-center">
-            <div className="text-2xl font-bold text-accent mb-4">
+          <div className="bg-[var(--color-black)]/90 rounded-xl shadow p-8 flex flex-col items-center">
+            <div className="text-2xl font-bold text-[var(--color-accent)] mb-4">
               {getResult()?.title}
             </div>
-            <div className="text-lg text-foreground/80 mb-6">
+            <div className="text-lg text-[var(--color-white)]/80 mb-6">
               {getResult()?.description}
             </div>
             <button
-              className="btn-ripple bg-accent/90 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-accent transition focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/60"
+              className="btn-ripple bg-[var(--color-accent)] text-[var(--color-black)] font-semibold px-6 py-3 rounded-lg shadow hover:bg-[var(--color-dark-green)] hover:text-[var(--color-white)] transition focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-accent)]/60"
               onClick={() => {
                 setStep(0);
                 setAnswers([]);
