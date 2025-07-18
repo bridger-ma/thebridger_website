@@ -14,33 +14,56 @@ export default function Contact() {
   const blur = useTransform(scrollY, [0, 400], ['blur(0px)', 'blur(6px)']);
 
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
+
+  // Fallback for linter error
+  const contact = (data as any).contact || { heading: 'Contact Us', description: 'Have questions or want to collaborate? Reach out to us!' };
 
   const inputClasses = (fieldName: string) =>
     `w-full px-4 py-3 rounded-lg border-2 bg-background/50 backdrop-blur-sm
     text-foreground placeholder:text-foreground/50
-    focus:outline-none focus:ring-2 focus:ring-green-500/50
+    focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/50
     transition-all duration-300
-    ${focusedField === fieldName ? 'border-green-500/50 shadow-lg shadow-green-500/20' : 'border-accent/20'}`;
+    ${focusedField === fieldName ? 'border-[var(--color-accent)]/70 shadow-lg shadow-[var(--color-accent)]/20' : 'border-accent/20'}`;
 
-  const contact = data.contact || { heading: 'Contact Us', description: 'Have questions or want to collaborate? Reach out to us!' };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.name || !form.email || !form.message) {
+      setError('Please fill in all fields.');
+      return;
+    } 
+    setError('');
+    setSubmitted(true);
+    // Here you would handle sending the form data
+  };
 
   return (
     <motion.section
-      className="py-20 bg-background relative overflow-hidden"
+      className="py-20  relative overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.7 }}
     >
-      {/* Simple static background instead of 3D */}
-      <motion.div className="background-3d" style={{ scale, filter: blur }} />
+      {/* Background image and overlay */}
+      <img
+        src="/images/gabriele-malaspina-CjWsslYVnPI-unsplash.jpg"
+        alt="Contact background"
+        className="absolute inset-0 w-full h-full object-cover opacity-20 z-0"
+      />
+      <div className="absolute inset-0  z-0" />
       {/* Floating accent orb */}
       <motion.div
         className="absolute left-1/4 top-12 w-24 h-24 rounded-full bg-accent/30 blur-3xl z-0"
         animate={{ y: [0, 30, 0], opacity: [0.3, 0.6, 0.3], scale: [1, 1.1, 1] }}
         transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
       />
-      {/* Removed 3D Section Background */}
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -69,7 +92,45 @@ export default function Contact() {
             {contact.description}
           </motion.p>
         </motion.div>
-        {/* ...rest of the contact form... */}
+        {/* Contact Form */}
+        <form onSubmit={handleSubmit} className=" rounded-xl shadow-lg p-8 flex flex-col gap-6 backdrop-blur-md border border-accent/20">
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            className={inputClasses('name')}
+            value={form.name}
+            onChange={handleChange}
+            onFocus={() => setFocusedField('name')}
+            onBlur={() => setFocusedField(null)}
+            autoComplete="name"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Your Email"
+            className={inputClasses('email')}
+            value={form.email}
+            onChange={handleChange}
+            onFocus={() => setFocusedField('email')}
+            onBlur={() => setFocusedField(null)}
+            autoComplete="email"
+          />
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            className={inputClasses('message') + ' min-h-[120px] resize-vertical'}
+            value={form.message}
+            onChange={handleChange}
+            onFocus={() => setFocusedField('message')}
+            onBlur={() => setFocusedField(null)}
+          />
+          {error && <div className="text-red-500 text-sm font-medium">{error}</div>}
+          {submitted && <div className="text-green-500 text-sm font-medium">Thank you for reaching out! We'll get back to you soon.</div>}
+          <Button type="submit" className="w-full mt-2" variant="default">
+            Send Message
+          </Button>
+        </form>
       </div>
     </motion.section>
   );
