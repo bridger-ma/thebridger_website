@@ -1,25 +1,25 @@
 'use client';
 
 import { motion, useViewportScroll, useTransform } from 'framer-motion';
-import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
-import dynamic from 'next/dynamic';
 import data from '../../data.json';
+import Image from 'next/image';
+
+type ContactData = {
+  heading: string;
+  description: string;
+};
+const contact: ContactData = (data as { contact?: ContactData }).contact || { heading: 'Contact Us', description: 'Have questions or want to collaborate? Reach out to us!' };
 
 export default function Contact() {
   const { scrollY } = useViewportScroll();
   const y = useTransform(scrollY, [0, 400], [0, 60]);
-  const scale = useTransform(scrollY, [0, 400], [1, 1.04]);
-  const blur = useTransform(scrollY, [0, 400], ['blur(0px)', 'blur(6px)']);
 
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
-
-  // Fallback for linter error
-  const contact = (data as any).contact || { heading: 'Contact Us', description: 'Have questions or want to collaborate? Reach out to us!' };
 
   const inputClasses = (fieldName: string) =>
     `w-full px-4 py-3 rounded-lg border-2 bg-background/50 backdrop-blur-sm
@@ -52,10 +52,12 @@ export default function Contact() {
       transition={{ duration: 0.7 }}
     >
       {/* Background image and overlay */}
-      <img
+      <Image
         src="/images/gabriele-malaspina-CjWsslYVnPI-unsplash.jpg"
         alt="Contact background"
-        className="absolute inset-0 w-full h-full object-cover opacity-20 z-0"
+        fill
+        className="object-cover opacity-10 z-0"
+        priority
       />
       <div className="absolute inset-0  z-0" />
       {/* Floating accent orb */}
@@ -83,13 +85,13 @@ export default function Contact() {
             {contact.heading}
           </motion.h2>
           <motion.p
-            className="text-lg text-foreground/80 max-w-2xl mx-auto"
+            className="text-lg text-[var(--color-white)]/80 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            {contact.description}
+            {contact.description.replace("'", "&apos;")}
           </motion.p>
         </motion.div>
         {/* Contact Form */}
@@ -126,7 +128,7 @@ export default function Contact() {
             onBlur={() => setFocusedField(null)}
           />
           {error && <div className="text-red-500 text-sm font-medium">{error}</div>}
-          {submitted && <div className="text-green-500 text-sm font-medium">Thank you for reaching out! We'll get back to you soon.</div>}
+          {submitted && <div className="text-green-500 text-sm font-medium">Thank you for reaching out! We&apos;ll get back to you soon.</div>}
           <Button type="submit" className="w-full mt-2" variant="default">
             Send Message
           </Button>
