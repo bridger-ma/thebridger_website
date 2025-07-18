@@ -12,6 +12,7 @@ import {
   Linkedin,
 } from "lucide-react";
 import data from "../../data.json";
+import { useEffect, useState } from "react";
 
 const fadeInUpVariant = {
   hidden: { opacity: 0, y: 20 },
@@ -27,8 +28,8 @@ const LinkItem = ({
 }) => (
   <motion.a
     href={href}
-    className="text-gray-400 hover:text-white flex items-center gap-2 group w-fit transition-all duration-300"
-    whileHover={{ x: 4, color: "#3b82f6" }}
+    className="text-[var(--color-white)]/80 hover:text-[var(--color-accent)] flex items-center gap-2 group w-fit transition-all duration-300"
+    whileHover={{ x: 4, color: "[var(--color-accent)]" }}
     transition={{ type: "spring", stiffness: 300, damping: 20 }}
   >
     <span>{children}</span>
@@ -48,7 +49,7 @@ const SocialIcon = ({
   <motion.a
     href={href}
     aria-label={label}
-    className="w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-all duration-300"
+    className="w-10 h-10 bg-[var(--color-black)] hover:bg-[var(--color-dark-green)] rounded-full flex items-center justify-center text-[var(--color-white)] hover:text-[var(--color-accent)] transition-all duration-300"
     whileHover={{ scale: 1.1, y: -2 }}
     whileTap={{ scale: 0.95 }}
   >
@@ -57,6 +58,17 @@ const SocialIcon = ({
 );
 
 export default function Footer() {
+  const [orbs, setOrbs] = useState<{width:number;height:number;left:number;top:number;}[]>([]);
+
+  useEffect(() => {
+    setOrbs(Array.from({ length: 6 }, (_, i) => ({
+      width: 100 + i * 50,
+      height: 100 + i * 50,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+    })));
+  }, []);
+
   const footer = data.footer || {
     brand: "The Bridger",
     description:
@@ -74,7 +86,7 @@ export default function Footer() {
 
   return (
     <motion.footer
-      className="relative bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white overflow-hidden"
+      className="relative text-[var(--color-white)] overflow-hidden"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
@@ -83,15 +95,15 @@ export default function Footer() {
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Floating orbs */}
-        {[...Array(6)].map((_, i) => (
+        {orbs.map((orb, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full bg-gradient-to-r from-blue-400/20 to-purple-400/20 blur-xl"
+            className="absolute rounded-full bg-[var(--color-dark-green)]/20 blur-xl"
             style={{
-              width: `${100 + i * 50}px`,
-              height: `${100 + i * 50}px`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              width: `${orb.width}px`,
+              height: `${orb.height}px`,
+              left: `${orb.left}%`,
+              top: `${orb.top}%`,
             }}
             animate={{
               x: [0, 30, 0],
@@ -106,29 +118,10 @@ export default function Footer() {
             }}
           />
         ))}
-
-        {/* Grid pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div
-            className="w-full h-full"
-            style={{
-              backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-              backgroundSize: "50px 50px",
-            }}
-          />
-        </div>
+        {/* Removed custom background image and overlay, now using global animated background */}
       </div>
-
-      {/* Top gradient border */}
-      <motion.div
-        className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"
-        animate={{
-          backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-        }}
-        transition={{ duration: 5, repeat: Infinity }}
-        style={{ backgroundSize: "200% 200%" }}
-      />
-
+      {/* Top solid accent border */}
+      <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-accent)]" />
       <div className="max-w-7xl mx-auto px-6 py-20 relative z-10">
         <motion.div
           initial="hidden"
@@ -145,21 +138,19 @@ export default function Footer() {
           >
             <motion.div className="flex items-center gap-3">
               <motion.div
-                className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center"
+                className="w-12 h-12 bg-[var(--color-dark-green)] rounded-xl flex items-center justify-center"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.6 }}
               >
-                <Sparkles className="w-6 h-6 text-white" />
+                <Sparkles className="w-6 h-6 text-[var(--color-accent)]" />
               </motion.div>
-              <h3 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              <h3 className="text-3xl font-bold text-[var(--color-accent)]">
                 {footer.brand}
               </h3>
             </motion.div>
-
-            <p className="text-gray-300 leading-relaxed text-lg max-w-md">
+            <p className="text-[var(--color-white)]/80 leading-relaxed text-lg max-w-md">
               {footer.description}
             </p>
-
             {/* Social links */}
             <div className="flex items-center gap-4">
               <SocialIcon
@@ -179,14 +170,13 @@ export default function Footer() {
               />
             </div>
           </motion.div>
-
           {/* Quick links */}
           <motion.div
             variants={fadeInUpVariant}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="space-y-6"
           >
-            <h3 className="text-xl font-semibold text-white flex items-center gap-2">
+            <h3 className="text-xl font-semibold text-[var(--color-white)] flex items-center gap-2">
               Quick Links
               <motion.div
                 animate={{ rotate: [0, 360] }}
@@ -210,14 +200,13 @@ export default function Footer() {
               )}
             </ul>
           </motion.div>
-
           {/* Contact info */}
           <motion.div
             variants={fadeInUpVariant}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="space-y-6"
           >
-            <h3 className="text-xl font-semibold text-white flex items-center gap-2">
+            <h3 className="text-xl font-semibold text-[var(--color-white)] flex items-center gap-2">
               Get in Touch
               <motion.div
                 animate={{ scale: [1, 1.2, 1] }}
@@ -230,13 +219,13 @@ export default function Footer() {
               <li>
                 <motion.a
                   href={`mailto:${footer.contact.email}`}
-                  className="text-gray-300 hover:text-blue-400 flex items-center gap-3 group transition-colors"
+                  className="text-[var(--color-white)]/80 hover:text-[var(--color-accent)] flex items-center gap-3 group transition-colors"
                   whileHover={{ x: 4 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
                   <motion.div
-                    className="w-8 h-8 bg-blue-600/20 rounded-lg flex items-center justify-center"
-                    whileHover={{ backgroundColor: "rgba(59, 130, 246, 0.3)" }}
+                    className="w-8 h-8 bg-[var(--color-dark-green)]/40 rounded-lg flex items-center justify-center"
+                    whileHover={{ backgroundColor: "rgba(1, 68, 33, 0.6)" }}
                   >
                     <Mail className="w-4 h-4" />
                   </motion.div>
@@ -245,12 +234,12 @@ export default function Footer() {
               </li>
               <li>
                 <motion.div
-                  className="text-gray-300 flex items-center gap-3"
+                  className="text-[var(--color-white)]/80 flex items-center gap-3"
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                 >
-                  <div className="w-8 h-8 bg-purple-600/20 rounded-lg flex items-center justify-center">
+                  <div className="w-8 h-8 bg-[var(--color-dark-green)]/40 rounded-lg flex items-center justify-center">
                     <MapPin className="w-4 h-4" />
                   </div>
                   <span>{footer.contact.location}</span>
@@ -259,28 +248,27 @@ export default function Footer() {
             </ul>
           </motion.div>
         </motion.div>
-
         {/* Newsletter signup */}
         <motion.div
-          className="mt-16 p-8 bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-2xl border border-gray-700/50"
+          className="mt-16 p-8 bg-[var(--color-dark-green)]/20 rounded-2xl border-2 border-[var(--color-dark-green)]"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.6 }}
           viewport={{ once: true }}
         >
           <div className="text-center max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold mb-4 text-white">Stay Updated</h3>
-            <p className="text-gray-300 mb-6">
+            <h3 className="text-2xl font-bold mb-4 text-[var(--color-white)]">Stay Updated</h3>
+            <p className="text-[var(--color-white)]/80 mb-6">
               Get the latest AI insights and updates delivered to your inbox
             </p>
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-1 px-4 py-3 bg-[var(--color-black)]/80 border-2 border-[var(--color-dark-green)] rounded-lg text-[var(--color-white)] placeholder-[var(--color-white)]/60 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
               />
               <motion.button
-                className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold"
+                className="px-6 py-3 bg-[var(--color-accent)] text-[var(--color-black)] rounded-lg font-semibold hover:bg-[var(--color-dark-green)] hover:text-[var(--color-white)] border-2 border-[var(--color-accent)] transition-all duration-200"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -289,16 +277,15 @@ export default function Footer() {
             </div>
           </div>
         </motion.div>
-
         {/* Bottom section */}
         <motion.div
-          className="mt-16 pt-8 border-t border-gray-700/50 flex flex-col md:flex-row justify-between items-center gap-4"
+          className="mt-16 pt-8 border-t-2 border-[var(--color-dark-green)] flex flex-col md:flex-row justify-between items-center gap-4"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5, duration: 0.6 }}
         >
-          <p className="text-gray-400 text-sm flex items-center gap-2">
+          <p className="text-[var(--color-white)]/60 text-sm flex items-center gap-2">
             &copy; {new Date().getFullYear()} The Bridger. Made with
             <motion.span
               animate={{ scale: [1, 1.2, 1] }}
@@ -308,22 +295,21 @@ export default function Footer() {
             </motion.span>
             in Morocco
           </p>
-          <div className="flex items-center gap-6 text-sm text-gray-400">
-            <a href="#" className="hover:text-white transition-colors">
+          <div className="flex items-center gap-6 text-sm text-[var(--color-white)]/60">
+            <a href="#" className="hover:text-[var(--color-accent)] transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="#" className="hover:text-[var(--color-accent)] transition-colors">
               Terms of Service
             </a>
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="#" className="hover:text-[var(--color-accent)] transition-colors">
               Cookies
             </a>
           </div>
         </motion.div>
       </div>
-
       {/* Bottom glow effect */}
-      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
+      <div className="absolute bottom-0 left-0 w-full h-px bg-[var(--color-accent)]/40" />
     </motion.footer>
   );
 }
