@@ -1,7 +1,4 @@
-import data from '../../data.json';
-
 export default function CTASection() {
-  const cta = data.cta;
   return (
     <section className="py-16 text-[var(--color-white)] text-center">
       <div className="max-w-2xl mx-auto px-4">
