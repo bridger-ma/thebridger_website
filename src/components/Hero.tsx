@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
+import Image from 'next/image';
 
 // Particle component for floating animation
 const Particle = ({
@@ -168,10 +169,12 @@ export default function Hero() {
           src="/video/download.mp4"
           type="video/mp4"
         />
-        <img
+        <Image
           src="/images/maximalfocus-naSAHDWRNbQ-unsplash.jpg"
           alt="AI background"
-          className="absolute inset-0 w-full h-full object-cover z-0"
+          fill
+          className="object-cover z-0"
+          priority
         />
       </video>
 
