@@ -7,8 +7,6 @@ import {
   Bus,
   Brain,
   Sparkles,
-  Zap,
-  Target,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
@@ -24,16 +22,13 @@ const iconMap: { [key: string]: React.ReactNode } = {
   Transportation: <Bus className="w-12 h-12" />,
 };
 
-// Image mapping for features
-const imageMap: { [key: string]: string } = {
-  Education: '/images/Untitled design.jpg',
-  Healthcare: '/images/ai-generated-abstract-background-with-connecting-dots-and-lines-network-concept-3d-rendering-abstract-technology-background-big-data-visualization-graphic-concept-for-your-design-ai-generated-.jpg',
-  Agriculture: '/images/cash-macanaya-ykO7Nb5pQt8-unsplash.jpg',
-  Transportation: '/images/ai-generated-abstract-blue-background-with-connecting-dots-and-lines-network-concept-3d-rendering-futuristic-technology-wallpaper-with-digital-glowing-waves-and-a-network-system-.jpg',
+type Feature = {
+  title: string;
+  description: string;
 };
 
 // 3D Card Component
-const FeatureCard = ({ feature, index }: { feature: any; index: number }) => {
+const FeatureCard = ({ feature, index }: { feature: Feature; index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const cardVariants = {
