@@ -4,7 +4,6 @@ import { assetRegistry } from '../lib/assets/assetRegistry';
 
 export const AssetLoader: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     let loaded = 0;
@@ -18,7 +17,6 @@ export const AssetLoader: React.FC = () => {
       setTimeout(() => {
         assetRegistry.loaded.push(asset.id);
         loaded++;
-        setProgress(Math.round((loaded / total) * 100));
         if (loaded === total) setLoading(false);
       }, 200 + Math.random() * 400);
     });
