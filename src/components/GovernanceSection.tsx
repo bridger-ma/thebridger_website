@@ -1,5 +1,4 @@
 import { ShieldCheck, Eye, Lock, Users } from 'lucide-react';
-import data from '../../data.json';
 
 const governance = [
   {
