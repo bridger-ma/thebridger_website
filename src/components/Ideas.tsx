@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import Image from 'next/image';
 
 const images = [
   '/images/xu-haiwei-fv1EFjgIb94-unsplash.jpg',
@@ -55,10 +56,13 @@ function IdeaCard({ idea, index }: { idea: typeof ideas[0]; index: number }) {
         </div>
         <CardHeader className="relative z-10">
           <div className="relative w-32 h-24 rounded-lg overflow-hidden border-2 border-[#1a5c1a]/50 group-hover:border-[#2ecc71]/50 transition-colors duration-300">
-            <img
+            <Image
               src={idea.image}
               alt={idea.title}
-              className="w-full h-full object-cover"
+              width={128}
+              height={96}
+              style={{ objectFit: 'cover', borderRadius: 8 }}
+              priority={index === 0}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
           </div>
@@ -83,7 +87,7 @@ function IdeaCard({ idea, index }: { idea: typeof ideas[0]; index: number }) {
               <DialogHeader className="relative z-10">
                 <DialogTitle className="flex items-center gap-3 text-[#2ecc71]">
                   <div className="w-16 h-12 rounded-lg overflow-hidden border border-[#1a5c1a]">
-                    <img src={idea.image} alt={idea.title} className="w-full h-full object-cover" />
+                    <Image src={idea.image} alt={idea.title} width={128} height={96} className="w-full h-full object-cover" />
                   </div>
                   {idea.title}
                 </DialogTitle>
