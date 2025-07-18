@@ -13,6 +13,7 @@ import CTASection from "@/components/CTASection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import AIQuiz from "@/components/AIQuiz";
 import { motion } from "framer-motion";
+import Contact from "@/components/Contact";
 
 const sectionAnim = {
   initial: { opacity: 0, y: 40 },
@@ -49,6 +50,9 @@ export default function Home() {
       </motion.section>
       <motion.section {...sectionAnim}>
         <CTASection />
+      </motion.section>
+      <motion.section {...sectionAnim}>
+        <Contact />
       </motion.section>
       <Footer />
     </main>
