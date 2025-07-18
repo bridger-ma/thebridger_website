@@ -162,10 +162,16 @@ export default function Hero() {
         loop
         playsInline
         className="absolute inset-0 w-full h-full object-cover z-0"
+        poster="/images/maximalfocus-naSAHDWRNbQ-unsplash.jpg"
       >
         <source
-          src="https://videos.pexels.com/video-files/18333010/18333010-sd_960_540_25fps.mp4"
+          src="/video/download.mp4"
           type="video/mp4"
+        />
+        <img
+          src="/images/maximalfocus-naSAHDWRNbQ-unsplash.jpg"
+          alt="AI background"
+          className="absolute inset-0 w-full h-full object-cover z-0"
         />
       </video>
 
@@ -173,22 +179,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-black/60 z-10" />
 
       {/* Animated gradient overlay */}
-      <motion.div
-        className="absolute inset-0 z-20"
-        style={{
-          background:
-            "linear-gradient(45deg, rgba(59,130,246,0.3), rgba(139,69,244,0.3), rgba(236,72,153,0.3), rgba(59,130,246,0.3))",
-          backgroundSize: "400% 400%",
-        }}
-        animate={{
-          backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
+     
 
       {/* Particle Effects */}
       <div className="absolute inset-0 z-30 pointer-events-none">
