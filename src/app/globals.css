@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -110,17 +110,31 @@
 }
 
 body {
-  background: linear-gradient(120deg, var(--color-black) 0%, var(--color-dark-green) 100%);
-  color: var(--foreground);
-  font-family: 'Roboto', 'Inter', 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #111111 0%, #014421 60%, #1db954 100%);
+  color: var(--color-white);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
   font-size: 1rem;
   line-height: 1.6;
   min-height: 100vh;
   transition: background 0.3s, color 0.3s;
 }
 
+.section-transparent {
+  background: transparent !important;
+}
+
 html {
   scroll-behavior: smooth;
+}
+
+main.snap-scroll {
+  scroll-snap-type: y mandatory;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+section.snap-section {
+  scroll-snap-align: start;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -137,7 +151,7 @@ p {
 }
 
 a {
-  color: var(--color-accent);
+  color: var(--color-white);
   text-decoration: none;
   transition: color 0.2s;
 }
@@ -156,13 +170,13 @@ a:hover, a:focus {
   color: var(--color-white);
 }
 .bg-section-accent {
-  background: var(--color-accent);
+  background: var(--color-dark-green);
   color: var(--color-black);
 }
 
 /* Accent borders */
 .border-accent {
-  border-color: var(--color-accent) !important;
+  border-color: var(--color-dark-green) !important;
 }
 .border-dark-green {
   border-color: var(--color-dark-green) !important;
@@ -347,4 +361,120 @@ a:hover, a:focus {
   animation: animated-dark-green 12s ease-in-out infinite;
   background-size: 200% 200%;
   transition: background 0.5s;
+}
+
+/* Starry background with dark green bubbles */
+.starry-bubbles-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+.starry-bubbles-bg .star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.7;
+  width: 1.5px;
+  height: 1.5px;
+  animation: twinkle 2s infinite ease-in-out;
+}
+.starry-bubbles-bg .bubble {
+  position: absolute;
+  background: var(--color-dark-green);
+  border-radius: 50%;
+  opacity: 0.18;
+  filter: blur(2px);
+  animation: bubble-float 12s infinite linear;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+@keyframes bubble-float {
+  0% { transform: translateY(0) scale(1); opacity: 0.18; }
+  50% { opacity: 0.28; }
+  100% { transform: translateY(-60vh) scale(1.1); opacity: 0.18; }
+}
+
+.glass {
+  backdrop-filter: blur(16px);
+  background: rgba(1, 17, 17, 0.7); /* black with opacity */
+  border: 1.5px solid var(--color-dark-green);
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 32px 0 rgba(1, 68, 33, 0.18);
+}
+
+/* Decorative orbs/lines for backgrounds */
+.orb {
+  background: var(--color-dark-green);
+  opacity: 0.18;
+  border-radius: 50%;
+  filter: blur(2px);
+  animation: float 12s infinite linear;
+}
+.orb-white {
+  background: var(--color-white);
+  opacity: 0.12;
+  border-radius: 50%;
+  filter: blur(2px);
+  animation: float 14s infinite linear;
+}
+@keyframes float {
+  0% { transform: translateY(0) scale(1); opacity: 0.18; }
+  50% { opacity: 0.28; }
+  100% { transform: translateY(-60vh) scale(1.1); opacity: 0.18; }
+}
+
+/* Accent and hover states */
+.accent {
+  color: var(--color-dark-green);
+}
+.bg-accent {
+  background: var(--color-dark-green);
+}
+.border-accent {
+  border-color: var(--color-dark-green) !important;
+}
+.button-accent {
+  background: var(--color-dark-green);
+  color: var(--color-white);
+  border-radius: 1.5rem;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.button-accent:hover, .button-accent:focus {
+  background: var(--color-white);
+  color: var(--color-dark-green);
+  box-shadow: 0 4px 24px 0 rgba(1, 68, 33, 0.18);
+}
+
+/* Remove all blue/purple/cyan gradients and gradient-text */
+.gradient-text, .animated-gradient, .bg-gradient-to-br, .bg-gradient-to-r, .bg-gradient-to-l {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  color: var(--color-white) !important;
+}
+
+.rounded-xl, .rounded-2xl, .rounded-full {
+  border-radius: 1.5rem !important;
+}
+
+.shadow-lg, .shadow-xl, .shadow-2xl {
+  box-shadow: 0 4px 32px 0 rgba(1,68,33,0.18), 0 1.5px 8px 0 rgba(1,68,33,0.10);
+}
+
+a, .link {
+  color: var(--color-white);
+  transition: color 0.2s;
+}
+a:hover, .link:hover {
+  color: var(--color-dark-green);
+}
+
+/* Ensure all text is white by default */
+h1, h2, h3, h4, h5, h6, p, span, div, label, input, textarea, button {
+  color: var(--color-white);
 }
