@@ -1,34 +1,20 @@
 import { ShieldCheck, Eye, Lock, Users } from 'lucide-react';
+import data from '../../data.json';
 
-const governance = [
-  {
-    title: 'Security',
-    description: 'We prioritize robust security and data protection in all our AI systems.',
-    icon: <ShieldCheck className="w-10 h-10 text-[var(--color-accent)]" />,
-  },
-  {
-    title: 'Transparency',
-    description: 'Our models and decisions are explainable and open to scrutiny.',
-    icon: <Eye className="w-10 h-10 text-[var(--color-dark-green)]" />,
-  },
-  {
-    title: 'Privacy',
-    description: 'User privacy is at the core of our platform, with strict controls and encryption.',
-    icon: <Lock className="w-10 h-10 text-[var(--color-accent)]" />,
-  },
-  {
-    title: 'Inclusivity',
-    description: 'We design AI for everyone, ensuring fairness and accessibility.',
-    icon: <Users className="w-10 h-10 text-[var(--color-dark-green)]" />,
-  },
-];
+const iconMap: { [key: string]: JSX.Element } = {
+  ShieldCheck: <ShieldCheck className="w-10 h-10 text-[var(--color-accent)]" />,
+  Eye: <Eye className="w-10 h-10 text-[var(--color-accent)]" />,
+  Lock: <Lock className="w-10 h-10 text-[var(--color-accent)]" />,
+  Users: <Users className="w-10 h-10 text-[var(--color-accent)]" />,
+};
+const governance = data.governance;
 
 export default function GovernanceSection() {
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section id="governance" className="py-20 relative overflow-hidden section-transparent">
       {/* Removed global animated background class */}
       <div className="max-w-5xl mx-auto px-4 relative z-10">
-        <h2 className="text-3xl font-bold text-center mb-10 text-[var(--color-white)] drop-shadow-lg">Our Commitment to Trustworthy AI</h2>
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-6 sm:mb-10 text-[var(--color-white)] drop-shadow-lg">Our Commitment to Trustworthy AI</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {governance.map((item) => (
             <div
@@ -39,12 +25,23 @@ export default function GovernanceSection() {
               role="region"
             >
               <span className="transition-transform duration-300 group-hover:scale-110 group-focus:scale-110 drop-shadow-lg">
-                {item.icon}
+                {iconMap[item.icon as keyof typeof iconMap]}
               </span>
               <h3 className="text-lg font-semibold mb-2 text-[var(--color-accent)] drop-shadow">{item.title}</h3>
               <p className="text-[var(--color-white)]/80">{item.description}</p>
             </div>
           ))}
+        </div>
+      </div>
+      {/* Scroll indicator for next section */}
+      <div className="absolute left-1/2 bottom-4 transform -translate-x-1/2 z-20">
+        <div className="flex flex-col items-center">
+          <div className="w-8 h-8 animate-bounce text-[var(--color-accent)]">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 6v20M16 26l-7-7M16 26l7-7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <span className="sr-only">Scroll for more</span>
         </div>
       </div>
     </section>
