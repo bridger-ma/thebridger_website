@@ -24,7 +24,7 @@ export const AssetLoader: React.FC = () => {
 
   if (!loading) return null;
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-transparent z-50">
       {/* Animated SVG Loader */}
       <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="animate-spin-slow">
         <circle cx="32" cy="32" r="28" stroke="var(--color-dark-green)" strokeWidth="4" opacity="0.2" />
