@@ -3,8 +3,7 @@
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import './globals.css';
-
-const inter = Inter({ subsets: ['latin'] });
+import StarryBubblesBg from '@/components/StarryBubblesBg';
 
 export default function RootLayout({
   children,
@@ -12,8 +11,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+    <html lang="en">
+      <body>
+        <StarryBubblesBg />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
