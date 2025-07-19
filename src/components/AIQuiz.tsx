@@ -35,7 +35,7 @@ export default function AIQuiz() {
   };
 
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-20 relative overflow-hidden section-transparent">
       {/* Removed global animated background class */}
       {/* Glowing accent orb */}
       <motion.div
@@ -48,7 +48,7 @@ export default function AIQuiz() {
           Which AI Solution Fits You?
         </h2>
         {!showResult ? (
-          <div className="bg-[var(--color-black)]/90 rounded-xl shadow p-8">
+          <div className="rounded-xl shadow p-8">
             <div className="text-lg font-semibold mb-6 text-[var(--color-accent)]">
               {questions[step].question}
             </div>
@@ -57,8 +57,9 @@ export default function AIQuiz() {
                 (opt: { label: string; value: string }) => (
                   <button
                     key={opt.value}
-                    className="btn-ripple bg-[var(--color-accent)] text-[var(--color-black)] font-semibold px-6 py-3 rounded-lg shadow hover:bg-[var(--color-dark-green)] hover:text-[var(--color-white)] transition focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-accent)]/60"
+                    className="btn-ripple bg-[var(--color-accent)] text-[var(--color-black)] font-semibold px-4 py-2 text-sm rounded-lg shadow transition focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-accent)]/60"
                     onClick={() => handleOption(opt.value)}
+                    aria-label={`Select option: ${opt.label}`}
                   >
                     {opt.label}
                   </button>
@@ -67,7 +68,7 @@ export default function AIQuiz() {
             </div>
           </div>
         ) : (
-          <div className="bg-[var(--color-black)]/90 rounded-xl shadow p-8 flex flex-col items-center">
+          <div className="rounded-xl shadow p-8 flex flex-col items-center">
             <div className="text-2xl font-bold text-[var(--color-accent)] mb-4">
               {getResult()?.title}
             </div>
@@ -75,14 +76,15 @@ export default function AIQuiz() {
               {getResult()?.description}
             </div>
             <button
-              className="btn-ripple bg-[var(--color-accent)] text-[var(--color-black)] font-semibold px-6 py-3 rounded-lg shadow hover:bg-[var(--color-dark-green)] hover:text-[var(--color-white)] transition focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-accent)]/60"
+              className="btn-ripple bg-[var(--color-accent)] text-[var(--color-black)] font-semibold px-4 py-2 text-sm rounded-lg shadow transition focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--color-accent)]/60 rounded-md"
               onClick={() => {
                 setStep(0);
                 setAnswers([]);
                 setShowResult(false);
               }}
+              aria-label="Try again"
             >
-              Try Again
+              new test
             </button>
           </div>
         )}
