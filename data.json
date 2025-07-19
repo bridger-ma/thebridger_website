@@ -207,5 +207,21 @@
       "email": "contact@thebridger.ma",
       "location": "Casablanca, Morocco"
     }
+  },
+  "performance": {
+    "qualityOptions": [
+      { "value": "auto", "label": "Auto" },
+      { "value": "high", "label": "High" },
+      { "value": "medium", "label": "Medium" },
+      { "value": "low", "label": "Low" }
+    ],
+    "labels": {
+      "fps": "FPS",
+      "avgFps": "Avg",
+      "device": "Device",
+      "quality": "Quality",
+      "liteMode": "Lite Mode",
+      "reducedMotion": "Reduced Motion"
+    }
   }
 } 
