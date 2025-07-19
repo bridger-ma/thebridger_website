@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { usePerformanceMonitor } from '@/lib/performance/usePerformanceMonitor';
 import { usePerformance } from '@/lib/performance/PerformanceMonitor';
-
-const QUALITY_OPTIONS = [
-  { value: 'auto', label: 'Auto' },
-  { value: 'high', label: 'High' },
-  { value: 'medium', label: 'Medium' },
-  { value: 'low', label: 'Low' },
-];
+import data from '../../data.json';
+const QUALITY_OPTIONS = data.performance.qualityOptions;
+const LABELS = data.performance.labels;
 
 export const PerformanceMonitor: React.FC = () => {
   const metrics = usePerformanceMonitor();
@@ -33,10 +29,10 @@ export const PerformanceMonitor: React.FC = () => {
   }, [quality, liteMode]);
 
   return (
-    <div className="fixed bottom-2 left-2 z-50 bg-black/70 text-white text-xs p-2 rounded font-mono flex flex-col gap-2 min-w-[220px]">
-      <div>FPS: {metrics.fps} (Avg: {metrics.averageFps})</div>
-      <div>Device: {metrics.deviceTier}</div>
-      <div>Quality: {quality}
+    <div className="fixed bottom-2 left-2 z-50 bg-transparent text-white text-xs p-2 rounded font-mono flex flex-col gap-2 min-w-[220px]">
+      <div>{LABELS.fps}: {metrics.fps} ({LABELS.avgFps}: {metrics.averageFps})</div>
+      <div>{LABELS.device}: {metrics.deviceTier}</div>
+      <div>{LABELS.quality}: {quality}
         <select
           className="ml-2 bg-black/80 text-white border border-white/20 rounded px-1 py-0.5 text-xs"
           value={quality}
@@ -55,10 +51,10 @@ export const PerformanceMonitor: React.FC = () => {
             onChange={e => setLiteMode(e.target.checked)}
             className="accent-accent"
           />
-          Lite Mode
+          {LABELS.liteMode}
         </label>
       </div>
-      <div>Reduced Motion: {isReducedMotion() ? 'Yes' : 'No'}</div>
+      <div>{LABELS.reducedMotion}: {isReducedMotion() ? 'Yes' : 'No'}</div>
     </div>
   );
 }; 
