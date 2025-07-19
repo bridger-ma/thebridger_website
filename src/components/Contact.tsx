@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useViewportScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import data from '../../data.json';
@@ -13,7 +13,7 @@ type ContactData = {
 const contact: ContactData = (data as { contact?: ContactData }).contact || { heading: 'Contact Us', description: 'Have questions or want to collaborate? Reach out to us!' };
 
 export default function Contact() {
-  const { scrollY } = useViewportScroll();
+  const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 400], [0, 60]);
 
   const [focusedField, setFocusedField] = useState<string | null>(null);
@@ -45,7 +45,8 @@ export default function Contact() {
 
   return (
     <motion.section
-      className="py-20  relative overflow-hidden"
+      id="contact"
+      className="py-20  relative overflow-hidden section-transparent"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -129,7 +130,7 @@ export default function Contact() {
           />
           {error && <div className="text-red-500 text-sm font-medium">{error}</div>}
           {submitted && <div className="text-green-500 text-sm font-medium">Thank you for reaching out! We&apos;ll get back to you soon.</div>}
-          <Button type="submit" className="w-full mt-2" variant="default">
+          <Button type="submit" className="w-full mt-2" variant="default" aria-label="Send Message">
             Send Message
           </Button>
         </form>
