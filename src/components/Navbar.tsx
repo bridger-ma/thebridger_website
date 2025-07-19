@@ -38,7 +38,7 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      className="fixed w-full z-50 border-b shadow-lg shadow-accent/10 relative transition-all duration-500"
+      className="fixed w-full z-50 border-b shadow-lg shadow-accent/10 relative transition-all duration-500 bg-transparent"
       style={{
         background: 'var(--color-navbar-bg)',
         color: 'var(--color-foreground)',
@@ -65,26 +65,32 @@ export default function Navbar() {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="#about" scroll={false} className="navbar-link" onClick={e => handleSmoothScroll(e, '#about')}>
-              About
-            </Link>
-            <Link href="#ideas" scroll={false} className="navbar-link" onClick={e => handleSmoothScroll(e, '#ideas')}>
-              AI Ideas
-            </Link>
-            <Link href="#contact" scroll={false} className="navbar-link" onClick={e => handleSmoothScroll(e, '#contact')}>
-              Contact
-            </Link>
-            <Link href="#blog" scroll={false} className="navbar-link" onClick={e => handleSmoothScroll(e, '#blog')}>
-              Blog
-            </Link>
-            <Link href="#careers" scroll={false} className="navbar-link" onClick={e => handleSmoothScroll(e, '#careers')}>
-              Careers
-            </Link>
+            {[
+              { href: '#about', label: 'About' },
+              { href: '#ideas', label: 'AI Ideas' },
+              { href: '#contact', label: 'Contact' },
+              { href: '#blog', label: 'Blog' },
+              { href: '#careers', label: 'Careers' },
+            ].map(link => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={e => handleSmoothScroll(e, link.href)}
+                className={`relative px-3 py-1 text-sm rounded-full font-medium transition-colors duration-200 text-[var(--color-white)] hover:bg-[var(--color-dark-green)] hover:text-[var(--color-accent)] focus:bg-[var(--color-dark-green)] focus:text-[var(--color-accent)] focus:outline-none group border border-[var(--color-dark-green)] ${typeof window !== 'undefined' && window.location.hash === link.href ? 'bg-[var(--color-dark-green)] text-[var(--color-accent)]' : ''}`}
+                style={{
+                  textShadow: '0 1px 4px rgba(0,0,0,0.18)',
+                }}
+                aria-current={typeof window !== 'undefined' && window.location.hash === link.href ? 'page' : undefined}
+              >
+                {link.label}
+                <span className="absolute left-0 -bottom-1 w-full h-0.5 bg-[var(--color-accent)] scale-x-0 group-hover:scale-x-100 group-focus:scale-x-100 transition-transform duration-300 origin-left" style={typeof window !== 'undefined' && window.location.hash === link.href ? { transform: 'scaleX(1)' } : {}} />
+              </a>
+            ))}
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              style={{ color: 'var(--color-accent)' }}
+              className="ml-2 text-[var(--color-accent)] hover:bg-[var(--color-dark-green)] hover:text-[var(--color-white)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
             >
               {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
@@ -96,7 +102,7 @@ export default function Navbar() {
               variant="ghost"
               size="icon"
               onClick={() => setIsOpen(!isOpen)}
-              style={{ color: 'var(--color-accent)' }}
+              className="text-[var(--color-accent)] hover:bg-[var(--color-dark-green)] hover:text-[var(--color-white)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
             >
               {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
