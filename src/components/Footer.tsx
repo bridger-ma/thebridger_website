@@ -6,10 +6,12 @@ import {
   MapPin,
   ExternalLink,
   Heart,
-  Sparkles,
   Github,
   Twitter,
   Linkedin,
+  Instagram,
+  Facebook,
+  Youtube,
 } from "lucide-react";
 import data from "../../data.json";
 import { useEffect, useState } from "react";
@@ -22,15 +24,27 @@ const fadeInUpVariant = {
 const LinkItem = ({
   href,
   children,
+  onClick,
+  target,
+  rel,
+  ariaLabel
 }: {
   href: string;
   children: React.ReactNode;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
+  target?: string;
+  rel?: string;
+  ariaLabel?: string;
 }) => (
   <motion.a
     href={href}
     className="text-[var(--color-white)]/80 hover:text-[var(--color-accent)] flex items-center gap-2 group w-fit transition-all duration-300"
     whileHover={{ x: 4, color: "[var(--color-accent)]" }}
     transition={{ type: "spring", stiffness: 300, damping: 20 }}
+    onClick={onClick}
+    target={target}
+    rel={rel}
+    aria-label={ariaLabel}
   >
     <span>{children}</span>
     <ExternalLink className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
@@ -86,7 +100,7 @@ export default function Footer() {
 
   return (
     <motion.footer
-      className="relative text-[var(--color-white)] overflow-hidden"
+      className="relative text-white overflow-hidden glass border-t border-white/10 section-transparent"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
@@ -120,9 +134,8 @@ export default function Footer() {
         ))}
         {/* Removed custom background image and overlay, now using global animated background */}
       </div>
-      {/* Top solid accent border */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-accent)]" />
-      <div className="max-w-7xl mx-auto px-6 py-20 relative z-10">
+      {/* Remove top accent border for a cleaner look */}
+      <div className="max-w-7xl mx-auto px-6 py-16 relative z-10">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -138,36 +151,26 @@ export default function Footer() {
           >
             <motion.div className="flex items-center gap-3">
               <motion.div
-                className="w-12 h-12 bg-[var(--color-dark-green)] rounded-xl flex items-center justify-center"
+                className="w-12 h-12 rounded-xl flex items-center justify-center overflow-hidden bg-[var(--color-dark-green)]"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.6 }}
               >
-                <Sparkles className="w-6 h-6 text-[var(--color-accent)]" />
+                {/* If you have a logo, use <img src="/images/logo.png" alt="The Bridger Logo" className="w-10 h-10 object-contain" /> */}
+                <span className="text-white text-2xl font-bold">B</span>
               </motion.div>
-              <h3 className="text-3xl font-bold text-[var(--color-accent)]">
-                {footer.brand}
-              </h3>
+              <span className="text-xl sm:text-2xl md:text-3xl font-bold gradient-text tracking-tight">{footer.brand}</span>
             </motion.div>
             <p className="text-[var(--color-white)]/80 leading-relaxed text-lg max-w-md">
               {footer.description}
             </p>
             {/* Social links */}
             <div className="flex items-center gap-4">
-              <SocialIcon
-                href="#"
-                icon={<Github className="w-5 h-5" />}
-                label="GitHub"
-              />
-              <SocialIcon
-                href="#"
-                icon={<Twitter className="w-5 h-5" />}
-                label="Twitter"
-              />
-              <SocialIcon
-                href="#"
-                icon={<Linkedin className="w-5 h-5" />}
-                label="LinkedIn"
-              />
+              <SocialIcon href="#" icon={<Github className="w-5 h-5" />} label="GitHub" />
+              <SocialIcon href="#" icon={<Twitter className="w-5 h-5" />} label="Twitter" />
+              <SocialIcon href="#" icon={<Linkedin className="w-5 h-5" />} label="LinkedIn" />
+              <SocialIcon href="#" icon={<Instagram className="w-5 h-5" />} label="Instagram" />
+              <SocialIcon href="#" icon={<Facebook className="w-5 h-5" />} label="Facebook" />
+              <SocialIcon href="#" icon={<Youtube className="w-5 h-5" />} label="YouTube" />
             </div>
           </motion.div>
           {/* Quick links */}
@@ -176,7 +179,7 @@ export default function Footer() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="space-y-6"
           >
-            <h3 className="text-xl font-semibold text-[var(--color-white)] flex items-center gap-2">
+            <h3 className="text-base sm:text-lg md:text-xl font-semibold text-[var(--color-white)] flex items-center gap-2">
               Quick Links
               <motion.div
                 animate={{ rotate: [0, 360] }}
@@ -194,7 +197,14 @@ export default function Footer() {
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
                   >
-                    <LinkItem href={link.href}>{link.label}</LinkItem>
+                    <LinkItem href={link.href} ariaLabel={link.label} onClick={e => {
+                      if (link.href.startsWith('#')) {
+                        e.preventDefault();
+                        document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }} target={link.href.startsWith('http') ? '_blank' : undefined} rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}>
+                      {link.label}
+                    </LinkItem>
                   </motion.li>
                 ),
               )}
@@ -206,7 +216,7 @@ export default function Footer() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="space-y-6"
           >
-            <h3 className="text-xl font-semibold text-[var(--color-white)] flex items-center gap-2">
+            <h3 className="text-base sm:text-lg md:text-xl font-semibold text-[var(--color-white)] flex items-center gap-2">
               Get in Touch
               <motion.div
                 animate={{ scale: [1, 1.2, 1] }}
@@ -257,7 +267,7 @@ export default function Footer() {
           viewport={{ once: true }}
         >
           <div className="text-center max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold mb-4 text-[var(--color-white)]">Stay Updated</h3>
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 text-[var(--color-white)]">Stay Updated</h3>
             <p className="text-[var(--color-white)]/80 mb-6">
               Get the latest AI insights and updates delivered to your inbox
             </p>
@@ -279,14 +289,14 @@ export default function Footer() {
         </motion.div>
         {/* Bottom section */}
         <motion.div
-          className="mt-16 pt-8 border-t-2 border-[var(--color-dark-green)] flex flex-col md:flex-row justify-between items-center gap-4"
+          className="mt-8 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5, duration: 0.6 }}
         >
-          <p className="text-[var(--color-white)]/60 text-sm flex items-center gap-2">
-            &copy; {new Date().getFullYear()} The Bridger. Made with
+          <p className="text-white/70 text-xs sm:text-sm flex items-center gap-2">
+            &copy; {new Date().getFullYear()} <span className="font-bold gradient-text">{footer.brand}</span>. Made with
             <motion.span
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 1, repeat: Infinity }}
@@ -295,16 +305,10 @@ export default function Footer() {
             </motion.span>
             in Morocco
           </p>
-          <div className="flex items-center gap-6 text-sm text-[var(--color-white)]/60">
-            <a href="#" className="hover:text-[var(--color-accent)] transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="hover:text-[var(--color-accent)] transition-colors">
-              Terms of Service
-            </a>
-            <a href="#" className="hover:text-[var(--color-accent)] transition-colors">
-              Cookies
-            </a>
+          <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm text-[var(--color-white)]/60">
+            <a href="#" className="hover:text-[var(--color-accent)] transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-[var(--color-accent)] transition-colors">Terms of Service</a>
+            <a href="#" className="hover:text-[var(--color-accent)] transition-colors">Cookies</a>
           </div>
         </motion.div>
       </div>
