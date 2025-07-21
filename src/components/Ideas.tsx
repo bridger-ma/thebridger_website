@@ -99,7 +99,7 @@ export default function Ideas() {
             </button>
           </div>
         </div>
-        <div className="flex flex-row gap-12 w-full justify-center">
+        <div className="flex flex-row gap-4 w-full justify-center">
           {pagedIdeas.map((idea) => (
             <IdeaCard key={idea.title} idea={idea} />
           ))}
