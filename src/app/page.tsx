@@ -27,7 +27,7 @@ const sectionAnim = {
 export default function Home() {
   const [showLoader, setShowLoader] = useState(true);
   useEffect(() => {
-    const timeout = setTimeout(() => setShowLoader(false), 5000);
+    const timeout = setTimeout(() => setShowLoader(false), 2000);
     return () => clearTimeout(timeout);
   }, []);
   if (showLoader) return <Loading />;
