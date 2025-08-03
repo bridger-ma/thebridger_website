@@ -34,8 +34,8 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-background relative overflow-x-hidden snap-scroll">
       <motion.section {...sectionAnim} className="snap-section">
-      <Navbar />
-      <Hero />
+        <Navbar />
+        <Hero />
       </motion.section>
       <motion.section {...sectionAnim} className="snap-section">
         <FeatureCards />
@@ -55,16 +55,16 @@ export default function Home() {
       <motion.section {...sectionAnim} className="snap-section">
         <AIQuiz />
       </motion.section>
-      <motion.section {...sectionAnim} className="snap-section">
+      {/* <motion.section {...sectionAnim} className="snap-section">
         <TestimonialsSection />
-      </motion.section>
+      </motion.section> */}
       <motion.section {...sectionAnim} className="snap-section">
         <CTASection />
       </motion.section>
       <motion.section {...sectionAnim} className="snap-section">
         <Contact />
-     
-      <Footer />
+
+        <Footer />
       </motion.section>
     </main>
   );
